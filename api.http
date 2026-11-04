@@ -1,0 +1,71 @@
+@baseURL=http://127.0.0.1:8000/api
+
+### ---------- Listing (filters + pagination) ----------
+
+GET {{baseURL}}/movies
+
+###
+
+GET {{baseURL}}/movies?title=my
+
+###
+
+GET {{baseURL}}/movies?year=2026
+
+###
+
+GET {{baseURL}}/movies?title=my&year=2026
+
+###
+
+GET {{baseURL}}/movies?page=2&limit=1
+
+###
+
+GET {{baseURL}}/movies?title=o&page=2&limit=1
+
+### Invalid pagination -> 422
+
+GET {{baseURL}}/movies?page=0
+
+### ---------- Create ----------
+
+POST {{baseURL}}/movies
+Content-Type: application/json
+
+{
+  "title": "L'Odyssée",
+  "description": "Ulysse, le fils du roi de Ithaque, est un héros grec de la guerre de Troie. Après la chute de Troie, il entreprend un long voyage pour rentrer chez lui.",
+  "year": 2026
+}
+
+### Invalid body -> 422
+
+POST {{baseURL}}/movies
+Content-Type: application/json
+
+{
+  "title": ""
+}
+
+### ---------- Read one ----------
+
+GET {{baseURL}}/movies/1
+
+### Unknown movie -> 404
+
+GET {{baseURL}}/movies/9999
+Accept: application/json
+
+### ---------- Update (only the sent fields are modified) ----------
+
+PATCH {{baseURL}}/movies/1
+Content-Type: application/json
+
+{
+  "title": "My renamed movie"
+}
+
+### ---------- Delete -> 204 ----------
+
+DELETE {{baseURL}}/movies/1

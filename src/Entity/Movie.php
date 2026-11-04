@@ -4,23 +4,35 @@ namespace App\Entity;
 
 use App\Repository\MovieRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
 {
+    #[Groups(['movie:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['movie:read', 'movie:write'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[Groups(['movie:read', 'movie:write'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $return = null;
+    #[Groups(['movie:read', 'movie:write'])]
+    #[Assert\NotNull]
+    #[Assert\Range(min: 1888, max: 2100)]
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $year = null;
 
     public function getId(): ?int
     {
@@ -51,14 +63,14 @@ class Movie
         return $this;
     }
 
-    public function getReturn(): ?string
+    public function getYear(): ?int
     {
-        return $this->return;
+        return $this->year;
     }
 
-    public function setReturn(string $return): static
+    public function setYear(int $year): static
     {
-        $this->return = $return;
+        $this->year = $year;
 
         return $this;
     }
