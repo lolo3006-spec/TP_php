@@ -86,3 +86,7 @@ Les tests fonctionnels utilisent une base SQLite dédiée à l'environnement `te
 
 L'authentification des utilisateurs, les notes des films et leur feed ne sont pas
 encore implémentés.
+
+## Utilisation de l'IA
+
+J'ai dû me servir de l'IA car localhost:8000 n'affichait pas mes retombés, comme je ne comprennais pourquoi, j'ai demandé à l'IA de m'aider.
